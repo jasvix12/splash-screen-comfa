@@ -2,6 +2,6 @@
 <resources>
     <color name="ColorAzul">#33CCFF</color>
     <color name="Colorblanco">#F9FAFB</color>
-
+    <color name="ColorNegro">#040404</color>
 
 </resources>
