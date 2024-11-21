@@ -7,7 +7,7 @@
     android:background="@color/Colorblanco"
     tools:context=".SplashScreen">
 
-    <!-- Logo completamente centrado -->
+
     <ImageView
         android:id="@+id/SplashScreenImage"
         android:layout_width="150dp"
@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.5" />
 
-    <!-- Texto Comfacauca debajo del logo -->
+
     <TextView
         android:id="@+id/SplashScreenText"
         android:layout_width="wrap_content"
@@ -35,6 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0" />
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
