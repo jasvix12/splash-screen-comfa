@@ -1,0 +1,71 @@
+
+
+    <!-- Tab Bar personalizado -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ColorAzul"
+        android:elevation="8dp"
+        android:paddingBottom="8dp"
+        android:layout_gravity="bottom">
+
+        <View
+            android:id="@+id/curvedBackground"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_curved_tab_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/fabButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/mas"
+            android:elevation="12dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/ColorAzulOscuro" />
+
+        <ImageView
+            android:id="@+id/icon_book"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/solicitud_permiso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/curvedBackground" />
+
+        <ImageView
+            android:id="@+id/icon_shoe"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/pendientes"
+            app:layout_constraintEnd_toStartOf="@id/fabButton"
+            app:layout_constraintBottom_toBottomOf="@id/curvedBackground" />
+
+        <ImageView
+            android:id="@+id/icon_apple"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/acept"
+            app:layout_constraintStart_toEndOf="@id/fabButton"
+            app:layout_constraintBottom_toBottomOf="@id/curvedBackground" />
+
+        <ImageView
+            android:id="@+id/icon_user"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ubicacion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/curvedBackground" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
