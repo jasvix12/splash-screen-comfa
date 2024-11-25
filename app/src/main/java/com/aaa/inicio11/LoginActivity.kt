@@ -13,11 +13,9 @@ class LoginActivity : AppCompatActivity() {
         val googleButton: LinearLayout = findViewById(R.id.googleButton)
 
         googleButton.setOnClickListener {
-            // Acción al hacer clic en el botón
-            // Por ejemplo, pasar a la siguiente actividad
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, PermisosActivity::class.java)
             startActivity(intent)
-            finish()  // Cierra la actividad actual
+            finish()
         }
     }
 }

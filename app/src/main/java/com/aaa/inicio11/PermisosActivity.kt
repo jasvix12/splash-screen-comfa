@@ -14,11 +14,11 @@ class PermisosActivity : AppCompatActivity() {
         setContentView(R.layout.activity_permisos)
 
 
-        val fabButton = findViewById<ImageView>(R.id.fabButton)
-        val iconBook = findViewById<ImageView>(R.id.icon_book)
-        val iconShoe = findViewById<ImageView>(R.id.icon_shoe)
-        val iconApple = findViewById<ImageView>(R.id.icon_apple)
-        val iconUser = findViewById<ImageView>(R.id.icon_user)
+        val fabButton = findViewById<ImageView>(R.id.homeIcon)
+        val iconBook = findViewById<ImageView>(R.id.pendingIcon)
+        val iconShoe = findViewById<ImageView>(R.id.mapIcon)
+        val iconApple = findViewById<ImageView>(R.id.locationIcon)
+        val iconUser = findViewById<ImageView>(R.id.addIcon)
 
 
         fabButton.setOnClickListener {
