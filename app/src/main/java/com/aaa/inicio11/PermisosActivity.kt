@@ -17,7 +17,7 @@ class PermisosActivity : AppCompatActivity() {
 
         val fabButton = findViewById<ImageView>(R.id.homeIcon)
         val iconBook = findViewById<ImageView>(R.id.pendingIcon)
-        val iconShoe = findViewById<ImageView>(R.id.mapIcon)
+        val iconShoe = findViewById<ImageView>(R.id.approvedIcon)
         val iconApple = findViewById<ImageView>(R.id.locationIcon)
         val iconUser = findViewById<ImageView>(R.id.profileIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon) // El ícono de "más"
@@ -32,7 +32,7 @@ class PermisosActivity : AppCompatActivity() {
         }
 
         iconShoe.setOnClickListener {
-            Toast.makeText(this, "Map Icon Clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "approved Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconApple.setOnClickListener {

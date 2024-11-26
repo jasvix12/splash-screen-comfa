@@ -73,7 +73,7 @@
                     android:prompt="@string/tipo_de_solicitud" />
 
                 <Spinner
-                    android:id="@+id/spinnerDiaSolicitud"
+                    android:id="@+id/spinnerSeccionDestino"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

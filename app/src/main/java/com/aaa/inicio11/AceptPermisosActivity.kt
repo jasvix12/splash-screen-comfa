@@ -1,5 +1,6 @@
 package com.aaa.inicio11
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class AceptPermisosActivity : AppCompatActivity() {
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acept_permiso)
@@ -22,10 +24,10 @@ class AceptPermisosActivity : AppCompatActivity() {
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon)
-        val mapIcon = findViewById<ImageView>(R.id.mapIcon)
+        val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
-        // Configurar eventos de clic para los íconos del footer
+
         homeIcon.setOnClickListener {
             Toast.makeText(this, "Home clicado", Toast.LENGTH_SHORT).show()
         }
@@ -41,8 +43,8 @@ class AceptPermisosActivity : AppCompatActivity() {
             Toast.makeText(this, "Más clicado, navegando a Permisos", Toast.LENGTH_SHORT).show()
         }
 
-        mapIcon.setOnClickListener {
-            Toast.makeText(this, "Mapa clicado", Toast.LENGTH_SHORT).show()
+        approvedIcon.setOnClickListener {
+            Toast.makeText(this, "Aprovado clicado", Toast.LENGTH_SHORT).show()
         }
 
         locationIcon.setOnClickListener {
@@ -66,7 +68,6 @@ class AceptPermisosActivity : AppCompatActivity() {
             Toast.makeText(this, "Permiso laboral rechazado", Toast.LENGTH_SHORT).show()
         }
 
-        // Configura los elementos de permisos (Salud)
         val saludAccept = findViewById<ImageView>(R.id.aceptSalud)
         val saludCancel = findViewById<ImageView>(R.id.cancelSalud)
 
@@ -78,7 +79,7 @@ class AceptPermisosActivity : AppCompatActivity() {
             Toast.makeText(this, "Permiso salud rechazado", Toast.LENGTH_SHORT).show()
         }
 
-        // Configura los elementos de permisos (Personal)
+
         val personalAccept = findViewById<ImageView>(R.id.aceptPersonal)
         val personalCancel = findViewById<ImageView>(R.id.cancelPersonal)
 
