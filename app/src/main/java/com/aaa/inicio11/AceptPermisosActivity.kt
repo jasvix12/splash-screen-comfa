@@ -1,5 +1,6 @@
 package com.aaa.inicio11
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -9,7 +10,7 @@ class AceptPermisosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.acept_permiso) // Usamos el archivo XML correcto
+        setContentView(R.layout.acept_permiso)
 
         // Encuentra y configura los íconos del header
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
@@ -34,7 +35,10 @@ class AceptPermisosActivity : AppCompatActivity() {
         }
 
         plusIcon.setOnClickListener {
-            Toast.makeText(this, "Más clicado", Toast.LENGTH_SHORT).show()
+            // Intent para navegar a PermisosActivity
+            val intent = Intent(this, PermisosActivity::class.java)
+            startActivity(intent) // Navegar a la actividad PermisosActivity
+            Toast.makeText(this, "Más clicado, navegando a Permisos", Toast.LENGTH_SHORT).show()
         }
 
         mapIcon.setOnClickListener {
@@ -99,6 +103,7 @@ class AceptPermisosActivity : AppCompatActivity() {
         }
     }
 }
+
 
 
 

@@ -37,6 +37,9 @@
 
         <activity android:name=".AceptPermisosActivity" />
 
+        <activity android:name=".PermisosActivity"/>
+
+
     </application>
 </manifest>
 

@@ -1,6 +1,7 @@
 package com.aaa.inicio11
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -19,31 +20,36 @@ class PermisosActivity : AppCompatActivity() {
         val iconShoe = findViewById<ImageView>(R.id.mapIcon)
         val iconApple = findViewById<ImageView>(R.id.locationIcon)
         val iconUser = findViewById<ImageView>(R.id.profileIcon)
+        val plusIcon = findViewById<ImageView>(R.id.plusIcon) // El ícono de "más"
 
 
         fabButton.setOnClickListener {
-            Toast.makeText(this, "FAB Button Clicked", Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(this, "Home Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconBook.setOnClickListener {
-            Toast.makeText(this, "Book Icon Clicked", Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(this, "Pending Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconShoe.setOnClickListener {
-            Toast.makeText(this, "Shoe Icon Clicked", Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(this, "Map Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconApple.setOnClickListener {
-            Toast.makeText(this, "Apple Icon Clicked", Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(this, "Location Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconUser.setOnClickListener {
-            Toast.makeText(this, "User Icon Clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Profile Icon Clicked", Toast.LENGTH_SHORT).show()
+        }
 
+        // Configurar el onClickListener para el ícono de "más"
+        plusIcon.setOnClickListener {
+            // Crear el Intent para navegar a la actividad de Permisos
+            val intent = Intent(this, PermisosActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Más Icon Clicked, navegando a Permisos", Toast.LENGTH_SHORT).show()
         }
     }
 }
+
