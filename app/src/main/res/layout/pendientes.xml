@@ -29,10 +29,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Permisos"
-            android:textSize="30dp"
+            android:gravity="center"
+            android:text="Pendientes"
             android:textColor="@android:color/white"
-            android:gravity="center" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/profileIcon"
@@ -42,72 +42,15 @@
             android:src="@drawable/icon_perfil" />
     </LinearLayout>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-102dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+        app:layout_constraintBottom_toTopOf="@id/footer"
+        android:padding="16dp">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/spinnerTipoSolicitud"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:prompt="@string/tipo_de_solicitud" />
-
-                <Spinner
-                    android:id="@+id/spinnerDiaSolicitud"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:prompt="@string/dia_de_solicitud" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Spinner
-                    android:id="@+id/spinnerHoraSalida"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:prompt="@string/hora_de_salida" />
-
-                <Spinner
-                    android:id="@+id/spinnerHoraEntrada"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:prompt="@string/hora_de_entrada" />
-
-            </LinearLayout>
-        </LinearLayout>
     </ScrollView>
 
     <FrameLayout
@@ -163,11 +106,3 @@
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-

@@ -18,7 +18,7 @@ class PermisosActivity : AppCompatActivity() {
         val iconBook = findViewById<ImageView>(R.id.pendingIcon)
         val iconShoe = findViewById<ImageView>(R.id.mapIcon)
         val iconApple = findViewById<ImageView>(R.id.locationIcon)
-        val iconUser = findViewById<ImageView>(R.id.addIcon)
+        val iconUser = findViewById<ImageView>(R.id.profileIcon)
 
 
         fabButton.setOnClickListener {

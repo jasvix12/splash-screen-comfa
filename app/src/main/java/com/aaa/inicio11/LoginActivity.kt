@@ -10,13 +10,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         val googleButton: LinearLayout = findViewById(R.id.googleButton)
 
+
         googleButton.setOnClickListener {
-            val intent = Intent(this, PermisosActivity::class.java)
+            val intent = Intent(this, AceptPermisosActivity::class.java)
             startActivity(intent)
             finish()
         }
     }
 }
+
+
 
