@@ -125,7 +125,7 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/homeIcon"
+                android:id="@+id/aceptIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
@@ -147,7 +147,7 @@
 
 
             <ImageView
-                android:id="@+id/mapIcon"
+                android:id="@+id/approvedIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"

@@ -14,25 +14,29 @@ class PermisosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permisos)
 
-
         val fabButton = findViewById<ImageView>(R.id.homeIcon)
         val iconBook = findViewById<ImageView>(R.id.pendingIcon)
         val iconShoe = findViewById<ImageView>(R.id.approvedIcon)
         val iconApple = findViewById<ImageView>(R.id.locationIcon)
         val iconUser = findViewById<ImageView>(R.id.profileIcon)
-        val plusIcon = findViewById<ImageView>(R.id.plusIcon) // El ícono de "más"
-
+        val plusIcon = findViewById<ImageView>(R.id.plusIcon)
 
         fabButton.setOnClickListener {
-            Toast.makeText(this, "Home Icon Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, AceptPermisosActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Acept permiso", Toast.LENGTH_SHORT).show()
         }
 
         iconBook.setOnClickListener {
+            val intent = Intent(this, PendientesActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Pending Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconShoe.setOnClickListener {
-            Toast.makeText(this, "approved Icon Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, AprovadaActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Approved Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
         iconApple.setOnClickListener {
@@ -43,13 +47,12 @@ class PermisosActivity : AppCompatActivity() {
             Toast.makeText(this, "Profile Icon Clicked", Toast.LENGTH_SHORT).show()
         }
 
-        // Configurar el onClickListener para el ícono de "más"
         plusIcon.setOnClickListener {
-            // Crear el Intent para navegar a la actividad de Permisos
             val intent = Intent(this, PermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Más Icon Clicked, navegando a Permisos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Ya estás en Permisos", Toast.LENGTH_SHORT).show()
         }
     }
 }
+
 

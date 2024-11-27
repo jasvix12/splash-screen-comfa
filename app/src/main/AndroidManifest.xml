@@ -36,9 +36,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity android:name=".AceptPermisosActivity" />
-
         <activity android:name=".PermisosActivity"/>
-
+        <activity android:name=".PendientesActivity"/>
+        <activity android:name=".AprovadaActivity"/>
 
     </application>
 </manifest>

@@ -14,49 +14,49 @@ class AceptPermisosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acept_permiso)
 
-        // Encuentra y configura los íconos del header
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         profileIcon.setOnClickListener {
             Toast.makeText(this, "Icono de perfil clicado", Toast.LENGTH_SHORT).show()
         }
 
-        // Encuentra y configura los íconos del footer
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon)
         val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
-
         homeIcon.setOnClickListener {
             Toast.makeText(this, "Home clicado", Toast.LENGTH_SHORT).show()
         }
 
+
         pendingIcon.setOnClickListener {
-            Toast.makeText(this, "Pendientes clicado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, PendientesActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Navegando a Pendientes", Toast.LENGTH_SHORT).show()
         }
 
         plusIcon.setOnClickListener {
-            // Intent para navegar a PermisosActivity
             val intent = Intent(this, PermisosActivity::class.java)
-            startActivity(intent) // Navegar a la actividad PermisosActivity
-            Toast.makeText(this, "Más clicado, navegando a Permisos", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+            Toast.makeText(this, "Navegando a Permisos", Toast.LENGTH_SHORT).show()
         }
 
+
         approvedIcon.setOnClickListener {
-            Toast.makeText(this, "Aprovado clicado", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, AprovadaActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Navegando a Aprovados", Toast.LENGTH_SHORT).show()
         }
 
         locationIcon.setOnClickListener {
             Toast.makeText(this, "Ubicación clicada", Toast.LENGTH_SHORT).show()
         }
 
-        // Configurar las opciones de permisos (Laboral, Salud, Personal, Estudio)
         setupPermissionOptions()
     }
 
     private fun setupPermissionOptions() {
-        // Configura los elementos de permisos (Laboral)
         val laboralAccept = findViewById<ImageView>(R.id.aceptLaboral)
         val laboralCancel = findViewById<ImageView>(R.id.cancelLaboral)
 
@@ -79,7 +79,6 @@ class AceptPermisosActivity : AppCompatActivity() {
             Toast.makeText(this, "Permiso salud rechazado", Toast.LENGTH_SHORT).show()
         }
 
-
         val personalAccept = findViewById<ImageView>(R.id.aceptPersonal)
         val personalCancel = findViewById<ImageView>(R.id.cancelPersonal)
 
@@ -91,7 +90,6 @@ class AceptPermisosActivity : AppCompatActivity() {
             Toast.makeText(this, "Permiso personal rechazado", Toast.LENGTH_SHORT).show()
         }
 
-        // Configura los elementos de permisos (Estudio)
         val estudioAccept = findViewById<ImageView>(R.id.aceptEstudio)
         val estudioCancel = findViewById<ImageView>(R.id.cancelEstudio)
 
@@ -104,6 +102,7 @@ class AceptPermisosActivity : AppCompatActivity() {
         }
     }
 }
+
 
 
 

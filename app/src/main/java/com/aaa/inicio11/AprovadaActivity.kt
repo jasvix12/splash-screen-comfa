@@ -1,5 +1,6 @@
 package com.aaa.inicio11
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -26,16 +27,22 @@ class AprovadaActivity : AppCompatActivity() {
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
         homeIcon.setOnClickListener {
+            val intent = Intent(this, AceptPermisosActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Navegando a la página de Inicio", Toast.LENGTH_SHORT).show()
             // Agrega navegación a la pantalla de inicio
         }
 
         pendingIcon.setOnClickListener {
+            val intent = Intent(this, PendientesActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Navegando a la sección de Pendientes", Toast.LENGTH_SHORT).show()
             // Agrega navegación a la sección de pendientes
         }
 
         plusIcon.setOnClickListener {
+            val intent = Intent(this, PermisosActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Accediendo a la sección de Crear Permiso", Toast.LENGTH_SHORT).show()
             // Agrega navegación para crear un nuevo permiso
         }
