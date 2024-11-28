@@ -26,30 +26,31 @@ class AceptPermisosActivity : AppCompatActivity() {
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
         homeIcon.setOnClickListener {
-            Toast.makeText(this, "Home clicado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Aceptar Permisos", Toast.LENGTH_SHORT).show()
         }
 
 
         pendingIcon.setOnClickListener {
             val intent = Intent(this, PendientesActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a Pendientes", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Solicitudes Pendientes", Toast.LENGTH_SHORT).show()
         }
 
         plusIcon.setOnClickListener {
             val intent = Intent(this, PermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a Permisos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, " Permisos", Toast.LENGTH_SHORT).show()
         }
-
 
         approvedIcon.setOnClickListener {
             val intent = Intent(this, AprobadoActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a Aprovados", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Solicitud a Aprovada", Toast.LENGTH_SHORT).show()
         }
 
         locationIcon.setOnClickListener {
+            val intent = Intent(this, UbicacionActivity::class.java)
+            startActivity(intent)
             Toast.makeText(this, "Ubicación clicada", Toast.LENGTH_SHORT).show()
         }
 

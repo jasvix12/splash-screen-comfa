@@ -12,9 +12,9 @@ class PendientesActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.pendientes) // Manteniendo el layout, aunque el contexto es de "Pendientes"
+        setContentView(R.layout.pendientes)
 
-        // Configurar el header
+
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         profileIcon.setOnClickListener {
             Toast.makeText(this, "Icono de perfil clicado", Toast.LENGTH_SHORT).show()
@@ -31,34 +31,32 @@ class PendientesActivity : AppCompatActivity() {
         homeIcon.setOnClickListener {
             val intent = Intent( this, AceptPermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a la página de Inicio", Toast.LENGTH_SHORT).show()
-            // Agrega navegación al inicio si es necesario
+            Toast.makeText(this, " Aceptar Permisos", Toast.LENGTH_SHORT).show()
+
         }
 
-        // Evento de clic en el icono de "Pendientes"
         pendingIcon.setOnClickListener {
-            Toast.makeText(this, "Ya estás en la sección de Pendientes", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Solicitudes Pendientes", Toast.LENGTH_SHORT).show()
         }
-
 
         plusIcon.setOnClickListener {
             val intent = Intent(this, PermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Accediendo a la sección de Crear Permiso", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, " Crear Permiso", Toast.LENGTH_SHORT).show()
 
         }
-
 
         approvedIcon.setOnClickListener {
             val intent = Intent(this, AprobadoActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "navegando a aprobados", Toast.LENGTH_SHORT).show()
-            // Lógica para abrir un mapa o mostrar ubicaciones
+            Toast.makeText(this, "Solicitud Aprobada", Toast.LENGTH_SHORT).show()
+
         }
 
-
         locationIcon.setOnClickListener {
-            Toast.makeText(this, "Ubicación actual mostrada", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, UbicacionActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Mostrar Ubicacion", Toast.LENGTH_SHORT).show()
 
         }
 

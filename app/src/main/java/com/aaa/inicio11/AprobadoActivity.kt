@@ -10,16 +10,16 @@ class AprobadoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.solicitud_aprobada) // Asegúrate de que este sea el nombre correcto del XML
+        setContentView(R.layout.solicitud_aprobada)
 
-        // Configuración del header
+
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         profileIcon.setOnClickListener {
             Toast.makeText(this, "Icono de perfil clicado", Toast.LENGTH_SHORT).show()
-            // Aquí puedes implementar navegación al perfil del usuario si es necesario
+
         }
 
-        // Configuración de los iconos del footer
+
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon)
@@ -29,52 +29,54 @@ class AprobadoActivity : AppCompatActivity() {
         homeIcon.setOnClickListener {
             val intent = Intent(this, AceptPermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a la página de Inicio", Toast.LENGTH_SHORT).show()
-            // Agrega navegación a la pantalla de inicio
+            Toast.makeText(this, "Aceptar Permisos", Toast.LENGTH_SHORT).show()
+
         }
 
         pendingIcon.setOnClickListener {
             val intent = Intent(this, PendientesActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a la sección de Pendientes", Toast.LENGTH_SHORT).show()
-            // Agrega navegación a la sección de pendientes
+            Toast.makeText(this, "Solicitudes Pendientes", Toast.LENGTH_SHORT).show()
+
         }
 
         plusIcon.setOnClickListener {
             val intent = Intent(this, PermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Accediendo a la sección de Crear Permiso", Toast.LENGTH_SHORT).show()
-            // Agrega navegación para crear un nuevo permiso
+            Toast.makeText(this, " Crear Permiso", Toast.LENGTH_SHORT).show()
+
         }
 
         approvedIcon.setOnClickListener {
-            Toast.makeText(this, "Navegando a Aprobadas", Toast.LENGTH_SHORT).show()
-            // Ya estamos en la pantalla de Aprobadas, puedes desactivar este clic si prefieres
+            Toast.makeText(this, "solicitud Aprobada", Toast.LENGTH_SHORT).show()
+
         }
 
         locationIcon.setOnClickListener {
-            Toast.makeText(this, "Mostrando la ubicación", Toast.LENGTH_SHORT).show()
-            // Implementa la lógica para mostrar la ubicación
+            val  intent = Intent(this, UbicacionActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Mostrar Ubicación", Toast.LENGTH_SHORT).show()
+
         }
 
-        // Cargar solicitudes aprobadas
+
         loadApprovedRequests()
     }
 
     private fun loadApprovedRequests() {
-        // Aquí puedes implementar la lógica para cargar las solicitudes aprobadas
+
         Toast.makeText(this, "Cargando solicitudes aprobadas...", Toast.LENGTH_SHORT).show()
 
-        // Ejemplo de lista de solicitudes aprobadas
+
         val approvedRequests = listOf(
             "Permiso laboral del 20/11/2024",
             "Permiso personal del 15/11/2024",
             "Permiso de salud del 10/11/2024"
         )
 
-        // Muestra las solicitudes aprobadas en un RecyclerView o un TextView
+
         for (request in approvedRequests) {
-            println("Aprobada: $request") // Esto
+            println("Aprobada: $request")
 
         }
     }

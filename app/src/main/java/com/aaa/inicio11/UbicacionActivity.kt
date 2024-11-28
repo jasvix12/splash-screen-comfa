@@ -13,47 +13,49 @@ class UbicacionActivity : AppCompatActivity() {
         setContentView(R.layout.ubicacion)
 
 
-        // Footer
+
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon)
         val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
-        // Navegación desde los íconos del footer
+
         homeIcon.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, AceptPermisosActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a Inicio", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Aceptar Permiso", Toast.LENGTH_SHORT).show()
         }
 
         pendingIcon.setOnClickListener {
             val intent = Intent(this, PendientesActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a Pendientes", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Solicitudes Pendientes", Toast.LENGTH_SHORT).show()
         }
 
         plusIcon.setOnClickListener {
-            Toast.makeText(this, "Abrir Crear Permiso", Toast.LENGTH_SHORT).show()
-            // Implementa lógica para agregar permisos
+            val intent = Intent(this, PermisosActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "Crear Permiso", Toast.LENGTH_SHORT).show()
+
         }
 
         approvedIcon.setOnClickListener {
             val intent = Intent(this, AprobadoActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Navegando a Aprobados", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Solicitud Aprobada", Toast.LENGTH_SHORT).show()
         }
 
         locationIcon.setOnClickListener {
-            Toast.makeText(this, "Ya estás en Ubicación", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Mostrar Ubicación", Toast.LENGTH_SHORT).show()
         }
 
-        // Cargar el mapa o ubicación
+
         loadMap()
     }
 
     private fun loadMap() {
-        // Implementa la lógica para cargar un mapa real (como Google Maps)
+
         Toast.makeText(this, "Cargando el mapa...", Toast.LENGTH_SHORT).show()
     }
 }
