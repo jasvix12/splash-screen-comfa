@@ -7,7 +7,7 @@
     android:background="@color/Colorblanco"
     tools:context=".PermisosActivity">
 
-    <!-- Header -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:background="@android:drawable/btn_dropdown"
-                    android:prompt="@string/dia_de_solicitud" />
+                    android:prompt="@string/seccion_de_destino"/>
 
             </LinearLayout>
 

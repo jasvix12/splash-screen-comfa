@@ -50,7 +50,7 @@ class PendientesActivity : AppCompatActivity() {
 
 
         approvedIcon.setOnClickListener {
-            val intent = Intent(this, AprovadaActivity::class.java)
+            val intent = Intent(this, AprobadoActivity::class.java)
             startActivity(intent)
             Toast.makeText(this, "navegando a aprobados", Toast.LENGTH_SHORT).show()
             // Lógica para abrir un mapa o mostrar ubicaciones

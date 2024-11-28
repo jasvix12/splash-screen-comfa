@@ -38,7 +38,8 @@
         <activity android:name=".AceptPermisosActivity" />
         <activity android:name=".PermisosActivity"/>
         <activity android:name=".PendientesActivity"/>
-        <activity android:name=".AprovadaActivity"/>
+        <activity android:name=".AprobadoActivity"/>
+        <activity android:name=".UbicacionActivity"/>
 
     </application>
 </manifest>

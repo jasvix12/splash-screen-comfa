@@ -44,7 +44,7 @@ class AceptPermisosActivity : AppCompatActivity() {
 
 
         approvedIcon.setOnClickListener {
-            val intent = Intent(this, AprovadaActivity::class.java)
+            val intent = Intent(this, AprobadoActivity::class.java)
             startActivity(intent)
             Toast.makeText(this, "Navegando a Aprovados", Toast.LENGTH_SHORT).show()
         }

@@ -4,7 +4,7 @@
 
 
 <string name="tipo_de_solicitud">Tipo de Solicitud</string>
-<string name="dia_de_solicitud">Día de Solicitud</string>
+<string name="seccion_de_destino">seccion_de_destino</string>
 <string name="hora_de_salida">Hora de Salida</string>
 <string name="hora_de_entrada">Hora de Entrada</string>
 </resources>
