@@ -30,94 +30,68 @@ class PermisosActivity : AppCompatActivity() {
         val spinnerHoraSalida = findViewById<Spinner>(R.id.spinnerHoraSalida)
         val spinnerHoraEntrada = findViewById<Spinner>(R.id.spinnerHoraEntrada)
 
-        // Configurar adaptadores para los Spinners
-        val tiposDeSolicitud = listOf("Permiso Personal", "Permiso Laboral", "Permiso de Salud")
-        val seccionesDestino = listOf("Sección A", "Sección B", "Sección C")
-        val horas = listOf("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00")
+        // Listas de datos para los spinners
+        val tiposDeSolicitud = listOf("Selecciona el tipo de solicitud", "Permiso Personal", "Permiso Laboral", "Permiso de Salud", "Permiso de Estudio")
+        val seccionesDestino = listOf("Selecciona una sección", "Sección A", "Sección B", "Sección C")
+
+        // Listas separadas para horas de salida y entrada
+        val horasSalida = listOf("Selecciona la hora de salida", "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM","01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM")
+        val horasEntrada = listOf("Selecciona la hora de entrada","07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM")
 
         // Configurar adaptadores para los spinners
-        val adapterTipoSolicitud = ArrayAdapter(this, android.R.layout.simple_spinner_item, tiposDeSolicitud)
-        adapterTipoSolicitud.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerTipoSolicitud.adapter = adapterTipoSolicitud
+        configureSpinner(spinnerTipoSolicitud, tiposDeSolicitud)
+        configureSpinner(spinnerSeccionDestino, seccionesDestino)
+        configureSpinner(spinnerHoraSalida, horasSalida)
+        configureSpinner(spinnerHoraEntrada, horasEntrada)
 
-        val adapterSeccionDestino = ArrayAdapter(this, android.R.layout.simple_spinner_item, seccionesDestino)
-        adapterSeccionDestino.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerSeccionDestino.adapter = adapterSeccionDestino
+        // Configuración de eventos en los iconos de navegación
+        profileIcon.setOnClickListener { showLogoutDialog() }
+        aceptIcon.setOnClickListener { navigateToActivity(AceptPermisosActivity::class.java, "Aceptar Permisos") }
+        pendingIcon.setOnClickListener { navigateToActivity(PendientesActivity::class.java, "Solicitudes Pendientes") }
+        plusIcon.setOnClickListener { Toast.makeText(this, "Crear Permiso", Toast.LENGTH_SHORT).show() }
+        approvedIcon.setOnClickListener { navigateToActivity(AprobadoActivity::class.java, "Solicitud Aprobada") }
+        locationIcon.setOnClickListener { navigateToActivity(UbicacionActivity::class.java, "Mostrar Ubicación") }
+    }
 
-        val adapterHoraSalida = ArrayAdapter(this, android.R.layout.simple_spinner_item, horas)
-        adapterHoraSalida.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerHoraSalida.adapter = adapterHoraSalida
+    // Método para configurar un spinner con su lista de datos
+    private fun configureSpinner(spinner: Spinner, data: List<String>) {
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
 
-        val adapterHoraEntrada = ArrayAdapter(this, android.R.layout.simple_spinner_item, horas)
-        adapterHoraEntrada.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerHoraEntrada.adapter = adapterHoraEntrada
-
-        // Mostrar diálogo de cerrar sesión cuando se hace clic en el icono de perfil
-        profileIcon.setOnClickListener {
-            showLogoutDialog()  // Llama a la función para mostrar el diálogo
-        }
-
-        // Otros íconos de navegación
-        aceptIcon.setOnClickListener {
-            val intent = Intent(this, AceptPermisosActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Aceptar Permisos", Toast.LENGTH_SHORT).show()
-        }
-
-        pendingIcon.setOnClickListener {
-            val intent = Intent(this, PendientesActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Solicitudes Pendientes", Toast.LENGTH_SHORT).show()
-        }
-
-        plusIcon.setOnClickListener {
-            Toast.makeText(this, "Crear Permiso", Toast.LENGTH_SHORT).show()
-        }
-
-        approvedIcon.setOnClickListener {
-            val intent = Intent(this, AprobadoActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Solicitud Aprobada", Toast.LENGTH_SHORT).show()
-        }
-
-        locationIcon.setOnClickListener {
-            val intent = Intent(this, UbicacionActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(this, "Mostrar Ubicación", Toast.LENGTH_SHORT).show()
-        }
+    // Método para manejar la navegación a otra actividad con un mensaje
+    private fun navigateToActivity(activityClass: Class<*>, message: String) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     // Método para mostrar el diálogo de cerrar sesión
     private fun showLogoutDialog() {
         val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_logout)  // Diseño del diálogo
+        dialog.setContentView(R.layout.dialog_logout)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        // Obtener los botones del diálogo
         val btnLogout = dialog.findViewById<Button>(R.id.btn_logout)
         val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel)
 
-        // Acción cuando se hace clic en "Cerrar sesión"
         btnLogout.setOnClickListener {
-            dialog.dismiss()  // Cerrar el diálogo
-            logoutUser()      // Llamar al método para cerrar sesión
+            dialog.dismiss()
+            logoutUser()
         }
 
-        // Acción cuando se hace clic en "Cancelar"
-        btnCancel.setOnClickListener {
-            dialog.dismiss()  // Cerrar el diálogo sin hacer nada
-        }
+        btnCancel.setOnClickListener { dialog.dismiss() }
 
-        dialog.show() // Mostrar el diálogo
+        dialog.show()
     }
 
     // Método para cerrar sesión y redirigir al LoginActivity
     private fun logoutUser() {
-        // Redirigir al usuario a la actividad de Login (pantalla de inicio de sesión)
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        finish() // Finalizar la actividad actual (cerrar sesión)
+        finish()
     }
 }
 
