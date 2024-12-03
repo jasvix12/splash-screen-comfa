@@ -106,7 +106,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 android:prompt="@string/hora_de_salida" />
 
-            <!-- Titulo y Spinner de Hora de Entrada -->
+            <!-- Titulo y Spinner de Hora de Entradas -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
