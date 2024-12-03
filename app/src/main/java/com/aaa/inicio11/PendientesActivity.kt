@@ -16,7 +16,7 @@ class PendientesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pendientes)
 
-        // Íconos de navegación
+
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         val homeIcon = findViewById<ImageView>(R.id.homeIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
@@ -24,12 +24,12 @@ class PendientesActivity : AppCompatActivity() {
         val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
-        // Mostrar diálogo de cerrar sesión cuando se hace clic en el icono de perfil
+
         profileIcon.setOnClickListener {
             showLogoutDialog()
         }
 
-        // Otros íconos de navegación
+
         homeIcon.setOnClickListener {
             val intent = Intent(this, AceptPermisosActivity::class.java)
             startActivity(intent)
@@ -58,7 +58,7 @@ class PendientesActivity : AppCompatActivity() {
             Toast.makeText(this, "Mostrar Ubicación", Toast.LENGTH_SHORT).show()
         }
 
-        // Cargar solicitudes pendientes
+
         loadPendingRequests()
     }
 
@@ -68,31 +68,31 @@ class PendientesActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.dialog_logout)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        // Obtener los botones del diálogo
+
         val btnLogout = dialog.findViewById<Button>(R.id.btn_logout)
         val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel)
 
-        // Acción cuando se hace clic en "Cerrar sesión"
+
         btnLogout.setOnClickListener {
             dialog.dismiss()
             logoutUser()
         }
 
-        // Acción cuando se hace clic en "Cancelar"
+
         btnCancel.setOnClickListener {
-            dialog.dismiss() // Cerrar el diálogo sin hacer nada
+            dialog.dismiss()
         }
 
-        dialog.show() // Mostrar el diálogo
+        dialog.show()
     }
 
     // Método para cerrar sesión y redirigir al LoginActivity
     private fun logoutUser() {
-        // Redirigir al usuario a la actividad de Login (pantalla de inicio de sesión)
+
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        finish() // Finalizar la actividad actual (cerrar sesión)
+        finish()
     }
 
     // Método para cargar las solicitudes pendientes
@@ -105,7 +105,7 @@ class PendientesActivity : AppCompatActivity() {
             "Permiso de estudio del 23/11/2024"
         )
 
-        // Mostrar las solicitudes pendientes
+
         for (request in pendingRequests) {
             println("Solicitud: $request")
         }

@@ -7,7 +7,7 @@
     android:background="@color/Colorblanco"
     tools:context=".UbicacionActivity">
 
-    <!-- Header -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:gravity="center" />
     </LinearLayout>
 
-    <!-- Mapa (puedes usar una vista de mapa como MapView o WebView) -->
+
     <FrameLayout
         android:id="@+id/mapContainer"
         android:layout_width="match_parent"
