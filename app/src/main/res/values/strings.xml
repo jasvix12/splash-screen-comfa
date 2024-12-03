@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Comfacauca</string>
+    <string name="bienvenido_a_comfacauca" translatable="false">Bienvenido a Comfacauca</string>
+
+
+<string name="tipo_de_solicitud">Tipo de Solicitud</string>
+<string name="seccion_de_destino">seccion_de_destino</string>
+<string name="hora_de_salida">Hora de Salida</string>
+<string name="hora_de_entrada">Hora de Entrada</string>
+
+
+        <string-array name="tipos_de_solicitud">
+            <item>Permiso Personal</item>
+            <item>Permiso Laboral</item>
+            <item>Permiso de Salud</item>
+            <item>Permiso de Estudio</item>
+        </string-array>
+
+        <string-array name="secciones_de_destino">
+            <item>Sección A</item>
+            <item>Sección B</item>
+            <item>Sección C</item>
+        </string-array>
+
+        <string-array name="horas">
+            <item>08:00</item>
+            <item>09:00</item>
+            <item>10:00</item>
+            <item>11:00</item>
+            <item>12:00</item>
+            <item>13:00</item>
+            <item>14:00</item>
+            <item>15:00</item>
+            <item>16:00</item>
+            <item>17:00</item>
+        </string-array>
+
+</resources>
+
+

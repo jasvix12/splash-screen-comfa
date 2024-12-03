@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Inicio11" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.Inicio11" parent="Base.Theme.Inicio11" />
+    
+    <style name="SplashTheme" parent="Theme.Inicio11">
+        <item name="android:windowBackground">@mipmap/ic_launcher_background</item>
+    </style>
+</resources>
