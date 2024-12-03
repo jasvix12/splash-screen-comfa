@@ -72,7 +72,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 android:prompt="@string/tipo_de_solicitud" />
 
-
+            <!-- Titulo y Spinner de Sección de Destino -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 android:background="@android:drawable/btn_dropdown"
                 android:prompt="@string/hora_de_salida" />
 
-
+            <!-- Titulo y Spinner de Hora de Entradas -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -167,6 +167,12 @@
                 android:layout_marginHorizontal="20dp"
                 android:src="@drawable/acept" />
 
+            <ImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="20dp"
+                android:src="@drawable/ubicacion"/>
 
         </LinearLayout>
 
