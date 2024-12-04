@@ -3,11 +3,7 @@ package com.aaa.inicio11
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class PermisosActivity : AppCompatActivity() {
@@ -16,6 +12,7 @@ class PermisosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permisos)
 
+        // Referencias a los elementos del diseño
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
@@ -27,45 +24,52 @@ class PermisosActivity : AppCompatActivity() {
         val spinnerSeccionDestino = findViewById<Spinner>(R.id.spinnerSeccionDestino)
         val spinnerHoraSalida = findViewById<Spinner>(R.id.spinnerHoraSalida)
         val spinnerHoraEntrada = findViewById<Spinner>(R.id.spinnerHoraEntrada)
+        val btnEnviar = findViewById<Button>(R.id.btnEnviarPermiso) // Botón de enviar
 
-        // Datos desde resources/strings.xml
-        val tiposDeSolicitud = resources.getStringArray(R.array.tipos_de_solicitud).toList()
-        val seccionesDestino = resources.getStringArray(R.array.secciones_de_destino).toList()
-        val horasSalida = resources.getStringArray(R.array.horas).toList()
-        val horasEntrada = resources.getStringArray(R.array.horas).toList()
+        // Configuración de los datos en los Spinners (desde strings.xml)
+        configureSpinner(spinnerTipoSolicitud, resources.getStringArray(R.array.tipos_de_solicitud).toList())
+        configureSpinner(spinnerSeccionDestino, resources.getStringArray(R.array.secciones_de_destino).toList())
+        configureSpinner(spinnerHoraSalida, resources.getStringArray(R.array.hora_de_salida).toList())
+        configureSpinner(spinnerHoraEntrada, resources.getStringArray(R.array.hora_de_entrada).toList())
 
-        // Configuración de Spinners
-        configureSpinner(spinnerTipoSolicitud, tiposDeSolicitud)
-        configureSpinner(spinnerSeccionDestino, seccionesDestino)
-        configureSpinner(spinnerHoraSalida, horasSalida)
-        configureSpinner(spinnerHoraEntrada, horasEntrada)
-
-        // Eventos de clic
+        // Eventos de clic para los íconos
         profileIcon.setOnClickListener { showLogoutDialog() }
         aceptIcon.setOnClickListener { navigateToActivity(AceptPermisosActivity::class.java, "Aceptar Permisos") }
         pendingIcon.setOnClickListener { navigateToActivity(PendientesActivity::class.java, "Solicitudes Pendientes") }
         approvedIcon.setOnClickListener { navigateToActivity(AprobadoActivity::class.java, "Solicitud Aprobada") }
         locationIcon.setOnClickListener { navigateToActivity(UbicacionActivity::class.java, "Mostrar Ubicación") }
 
+        // Evento de clic en el botón "plusIcon" para guardar una nueva solicitud
         plusIcon.setOnClickListener {
             if (validarSeleccion(spinnerTipoSolicitud, "Selecciona un tipo de solicitud") &&
                 validarSeleccion(spinnerSeccionDestino, "Selecciona una sección de destino") &&
                 validarSeleccion(spinnerHoraSalida, "Selecciona una hora de salida") &&
-                validarSeleccion(spinnerHoraEntrada, "Selecciona una hora de entrada")) {
-
+                validarSeleccion(spinnerHoraEntrada, "Selecciona una hora de entrada")
+            ) {
                 guardarPermiso(spinnerTipoSolicitud, spinnerSeccionDestino, spinnerHoraSalida, spinnerHoraEntrada)
+            }
+        }
+
+        // Funcionalidad para el botón "Enviar"
+        btnEnviar.setOnClickListener {
+            if (validarSeleccion(spinnerTipoSolicitud, "Selecciona un tipo de solicitud") &&
+                validarSeleccion(spinnerSeccionDestino, "Selecciona una sección de destino") &&
+                validarSeleccion(spinnerHoraSalida, "Selecciona una hora de salida") &&
+                validarSeleccion(spinnerHoraEntrada, "Selecciona una hora de entrada")
+            ) {
+                enviarPermiso(spinnerTipoSolicitud, spinnerSeccionDestino, spinnerHoraSalida, spinnerHoraEntrada)
             }
         }
     }
 
-    // Configuración de Spinners
+    // Configuración de Spinner con datos
     private fun configureSpinner(spinner: Spinner, data: List<String>) {
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
     }
 
-    // Validar selección de Spinner
+    // Validar que el usuario haya seleccionado un valor distinto al primer elemento
     private fun validarSeleccion(spinner: Spinner, mensajeError: String): Boolean {
         return if (spinner.selectedItemPosition == 0) {
             Toast.makeText(this, mensajeError, Toast.LENGTH_SHORT).show()
@@ -75,27 +79,43 @@ class PermisosActivity : AppCompatActivity() {
         }
     }
 
-    // Guardar permiso
+    // Guardar la solicitud de permiso en una base de datos simulada
     private fun guardarPermiso(spinnerTipoSolicitud: Spinner, spinnerSeccionDestino: Spinner, spinnerHoraSalida: Spinner, spinnerHoraEntrada: Spinner) {
         val tipo = spinnerTipoSolicitud.selectedItem.toString()
         val seccion = spinnerSeccionDestino.selectedItem.toString()
         val horaSalida = spinnerHoraSalida.selectedItem.toString()
         val horaEntrada = spinnerHoraEntrada.selectedItem.toString()
 
-        val permiso = "Tipo: $tipo, Sección: $seccion, Salida: $horaSalida, Entrada: $horaEntrada"
-        Toast.makeText(this, "Permiso creado: $permiso", Toast.LENGTH_LONG).show()
+        // Crear y guardar la solicitud en la base de datos simulada
+        val nuevaSolicitud = SolicitudPermiso(tipo, seccion, horaSalida, horaEntrada)
+        FakeDatabase.solicitudes.add(nuevaSolicitud)
 
-        // Aquí puedes agregar lógica para guardar el permiso en una base de datos o enviarlo a un servidor
+        Toast.makeText(this, "Permiso creado exitosamente", Toast.LENGTH_SHORT).show()
     }
 
-    // Navegar a otra actividad
+    // Acción del botón "Enviar"
+    private fun enviarPermiso(spinnerTipoSolicitud: Spinner, spinnerSeccionDestino: Spinner, spinnerHoraSalida: Spinner, spinnerHoraEntrada: Spinner) {
+        val tipo = spinnerTipoSolicitud.selectedItem.toString()
+        val seccion = spinnerSeccionDestino.selectedItem.toString()
+        val horaSalida = spinnerHoraSalida.selectedItem.toString()
+        val horaEntrada = spinnerHoraEntrada.selectedItem.toString()
+
+        // Enviar la solicitud (ejemplo con Toast, puedes cambiarlo a una lógica personalizada)
+        Toast.makeText(
+            this,
+            "Permiso enviado:\nTipo: $tipo\nSección: $seccion\nSalida: $horaSalida\nEntrada: $horaEntrada",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    // Navegar a otra actividad y mostrar un mensaje Toast
     private fun navigateToActivity(activityClass: Class<*>, message: String) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    // Mostrar diálogo de cerrar sesión
+    // Mostrar el cuadro de diálogo para cerrar sesión
     private fun showLogoutDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_logout)
@@ -122,6 +142,8 @@ class PermisosActivity : AppCompatActivity() {
         finish()
     }
 }
+
+
 
 
 

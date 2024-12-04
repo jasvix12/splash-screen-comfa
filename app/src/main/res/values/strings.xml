@@ -22,7 +22,7 @@
             <item>Sección C</item>
         </string-array>
 
-        <string-array name="horas">
+        <string-array name="hora_de_salida">
             <item>07:00AM</item>
             <item>08:00AM</item>
             <item>09:00AM</item>
@@ -33,8 +33,22 @@
             <item>02:00PM</item>
             <item>03:00PM</item>
             <item>04:00PM</item>
-
         </string-array>
+
+    <string-array name="hora_de_entrada">
+        <item>07:00AM</item>
+        <item>08:00AM</item>
+        <item>09:00AM</item>
+        <item>10:00AM</item>
+        <item>11:00AM</item>
+        <item>12:00PM</item>
+        <item>01:00PM</item>
+        <item>02:00PM</item>
+        <item>03:00PM</item>
+        <item>04:00PM</item>
+
+    </string-array>
+
 
 </resources>
 

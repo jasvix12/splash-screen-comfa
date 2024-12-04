@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Colorblanco"
-    tools:context=".PermisosActivity">
+    tools:context=".AceptPermisosActivity">
 
+    <!-- Cabecera -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -41,6 +43,7 @@
             android:src="@drawable/icon_perfil" />
     </LinearLayout>
 
+    <!-- Contenedor principal de las solicitudes de permisos -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -51,193 +54,72 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:orientation="vertical">
+
+            <!-- Spinner para Tipo de Solicitud -->
+            <Spinner
+                android:id="@+id/spinnerTipoSolicitud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/tipos_de_solicitud" />
+
+            <!-- Spinner para Sesión de Destino -->
+            <Spinner
+                android:id="@+id/spinnerSesionDestino"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/secciones_de_destino" />
+
+            <!-- Spinner para Hora de Salida -->
+            <Spinner
+                android:id="@+id/spinnerHoraSalida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/hora_de_salida" />
+
+            <!-- Spinner para Hora de Entrada -->
+            <Spinner
+                android:id="@+id/spinnerHoraEntrada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/hora_de_entrada" />
+
+            <!-- RecyclerView donde se mostrarán las solicitudes -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSolicitudes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Laboral"
-                    android:textSize="20sp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="16dp" />
+                android:gravity="center"
+                android:padding="8dp">
 
 
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp">
-
-                    <ImageView
-                        android:id="@+id/aceptLaboral"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/acept"
-                        android:background="@drawable/circle_green" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="16dp">
-
-                    <ImageView
-                        android:id="@+id/cancelLaboral"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/cancel"
-                        android:background="@drawable/circle_red" />
-                </FrameLayout>
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/aceptPermiso"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/acept"
+                    android:contentDescription="Aceptar Permiso" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Salud"
-                    android:textSize="20sp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="16dp" />
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp">
-
-                    <ImageView
-                        android:id="@+id/aceptSalud"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/acept"
-                        android:background="@drawable/circle_green" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="16dp">
-
-                    <ImageView
-                        android:id="@+id/cancelSalud"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/cancel"
-                        android:background="@drawable/circle_red" />
-                </FrameLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Personal"
-                    android:textSize="20sp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="16dp" />
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp">
-
-                    <ImageView
-                        android:id="@+id/aceptPersonal"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/acept"
-                        android:background="@drawable/circle_green" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="16dp">
-
-                    <ImageView
-                        android:id="@+id/cancelPersonal"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/cancel"
-                        android:background="@drawable/circle_red" />
-                </FrameLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Estudio"
-                    android:textSize="20sp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="16dp" />
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="8dp">
-
-                    <ImageView
-                        android:id="@+id/aceptEstudio"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/acept"
-                        android:background="@drawable/circle_green" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="16dp">
-
-                    <ImageView
-                        android:id="@+id/cancelEstudio"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/cancel"
-                        android:background="@drawable/circle_red" />
-                </FrameLayout>
+                <ImageView
+                    android:id="@+id/rechazarPermiso"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/cancel"
+                    android:contentDescription="Rechazar Permiso" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
+    <!-- Footer con íconos de navegación -->
     <FrameLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -251,9 +133,8 @@
             android:orientation="horizontal"
             android:gravity="center">
 
-
             <ImageView
-                android:id="@+id/homeIcon"
+                android:id="@+id/aceptIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
@@ -288,7 +169,12 @@
                 android:src="@drawable/ubicacion" />
         </LinearLayout>
     </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
 
 
