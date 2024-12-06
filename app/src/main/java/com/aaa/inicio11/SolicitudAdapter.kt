@@ -8,16 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SolicitudAdapter(
-    private val solicitudes: List<SolicitudPermiso>,
+    private val solicitudes: MutableList<SolicitudPermiso>,
     private val onAceptarClick: (SolicitudPermiso) -> Unit,
     private val onRechazarClick: (SolicitudPermiso) -> Unit
 ) : RecyclerView.Adapter<SolicitudAdapter.SolicitudViewHolder>() {
-
-    inner class SolicitudViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tipoText: TextView = itemView.findViewById(R.id.tipoText)
-        val aceptarButton: ImageView = itemView.findViewById(R.id.aceptIcon)
-        val rechazarButton: ImageView = itemView.findViewById(R.id.cancelIcon)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolicitudViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,10 +21,28 @@ class SolicitudAdapter(
 
     override fun onBindViewHolder(holder: SolicitudViewHolder, position: Int) {
         val solicitud = solicitudes[position]
-        holder.tipoText.text = solicitud.tipo
-        holder.aceptarButton.setOnClickListener { onAceptarClick(solicitud) }
-        holder.rechazarButton.setOnClickListener { onRechazarClick(solicitud) }
+        holder.bind(solicitud)
     }
 
     override fun getItemCount(): Int = solicitudes.size
+
+    inner class SolicitudViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvSolicitudMensaje: TextView = itemView.findViewById(R.id.tvSolicitudMensaje)
+        private val btnAceptar: ImageView = itemView.findViewById(R.id.btnAceptar)
+        private val btnRechazar: ImageView = itemView.findViewById(R.id.btnRechazar)
+
+        fun bind(solicitud: SolicitudPermiso) {
+            tvSolicitudMensaje.text = "${solicitud.tipo} - ${solicitud.seccion}"
+
+            btnAceptar.setOnClickListener {
+                onAceptarClick(solicitud)
+            }
+
+            btnRechazar.setOnClickListener {
+                onRechazarClick(solicitud)
+            }
+        }
+    }
 }
+
+

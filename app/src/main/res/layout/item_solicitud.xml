@@ -1,47 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center_vertical"
     android:padding="8dp"
-    android:layout_marginBottom="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@android:color/white"
+    android:elevation="4dp"
+    android:layout_marginBottom="8dp">
 
-<TextView
-    android:id="@+id/tipoText"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:textSize="20sp"
-    android:gravity="center_vertical"
-    android:paddingStart="16dp" />
-
-<FrameLayout
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginEnd="8dp">
+    <TextView
+        android:id="@+id/tvSolicitudMensaje"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Solicitud de permiso laboral"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
 
     <ImageView
-        android:id="@+id/aceptIcon"
+        android:id="@+id/btnAceptar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/acept"
-        android:background="@drawable/circle_green" />
-</FrameLayout>
-
-<FrameLayout
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_marginEnd="16dp">
+        android:contentDescription="Aceptar permiso"
+        android:layout_marginEnd="8dp"
+        android:background="?selectableItemBackground"
+        android:padding="8dp"/>
 
     <ImageView
-        android:id="@+id/cancelIcon"
+        android:id="@+id/btnRechazar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/cancel"
-        android:background="@drawable/circle_red" />
-</FrameLayout>
+        android:contentDescription="Rechazar permiso"
+        android:background="?selectableItemBackground"
+        android:padding="8dp"/>
 </LinearLayout>
+
+
 
 

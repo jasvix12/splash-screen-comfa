@@ -1,49 +1,55 @@
 package com.aaa.inicio11
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 
 class AceptPermisosActivity : AppCompatActivity() {
 
+    // Adaptador del RecyclerView
+    private lateinit var adapter: SolicitudAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_permisos)
+        setContentView(R.layout.acept_permiso)
 
-        // Configuración de los Spinners
-        val tipoSolicitudSpinner = findViewById<Spinner>(R.id.spinnerTipoSolicitud)
-        val sesionDestinoSpinner = findViewById<Spinner>(R.id.spinnerSeccionDestino)
-        val horaSalidaSpinner = findViewById<Spinner>(R.id.spinnerHoraSalida)
-        val horaEntradaSpinner = findViewById<Spinner>(R.id.spinnerHoraEntrada)
+        // Configurar RecyclerView
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewSolicitudes)
+        configurarRecyclerView(recyclerView)
 
-        // Arreglos de opciones para los spinners
-        val tipoSolicitudOptions = arrayOf("Personal", "Enfermedad", "Vacaciones", "Otros")
-        val sesionDestinoOptions = arrayOf("Mañana", "Tarde", "Noche")
-        val horaSalidaOptions = arrayOf("06:00", "07:00", "08:00", "09:00", "10:00")
-        val horaEntradaOptions = arrayOf("14:00", "15:00", "16:00", "17:00", "18:00")
+        // Configurar íconos del footer
+        configurarFooter()
+    }
 
-        // Adaptadores para los Spinners
-        val tipoSolicitudAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipoSolicitudOptions)
-        tipoSolicitudAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        tipoSolicitudSpinner.adapter = tipoSolicitudAdapter
+    private fun configurarRecyclerView(recyclerView: RecyclerView) {
+        // Inicializar el adaptador con las solicitudes de FakeDatabase
+        adapter = SolicitudAdapter(
+            FakeDatabase.solicitudes,
+            onAceptarClick = { solicitud ->
+                // Aceptar solicitud
+                FakeDatabase.solicitudes.remove(solicitud)
+                adapter.notifyDataSetChanged()
+                Toast.makeText(this, "Permiso aceptado: ${solicitud.tipo}", Toast.LENGTH_SHORT).show()
+            },
+            onRechazarClick = { solicitud ->
+                // Rechazar solicitud
+                FakeDatabase.solicitudes.remove(solicitud)
+                adapter.notifyDataSetChanged()
+                Toast.makeText(this, "Permiso rechazado: ${solicitud.tipo}", Toast.LENGTH_SHORT).show()
+            }
+        )
 
-        val sesionDestinoAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, sesionDestinoOptions)
-        sesionDestinoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        sesionDestinoSpinner.adapter = sesionDestinoAdapter
+        // Configurar RecyclerView con el adaptador
+        recyclerView.adapter = adapter
+    }
 
-        val horaSalidaAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, horaSalidaOptions)
-        horaSalidaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        horaSalidaSpinner.adapter = horaSalidaAdapter
-
-        val horaEntradaAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, horaEntradaOptions)
-        horaEntradaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        horaEntradaSpinner.adapter = horaEntradaAdapter
-
-        // Configuración de los botones de acción
+    private fun configurarFooter() {
+        // Referencias a los íconos del footer
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
@@ -51,33 +57,52 @@ class AceptPermisosActivity : AppCompatActivity() {
         val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
-        // Eventos de los botones
-        profileIcon?.setOnClickListener { showLogoutDialog() }
-        aceptIcon?.setOnClickListener {
-            Toast.makeText(this, "Aceptar Permisos", Toast.LENGTH_SHORT).show()
-        }
-        pendingIcon?.setOnClickListener {
-            startActivity(Intent(this, PendientesActivity::class.java))
-            Toast.makeText(this, "Solicitudes Pendientes", Toast.LENGTH_SHORT).show()
-        }
-        plusIcon?.setOnClickListener {
-            startActivity(Intent(this, PermisosActivity::class.java))
-            Toast.makeText(this, "Permisos", Toast.LENGTH_SHORT).show()
-        }
-        approvedIcon?.setOnClickListener {
-            startActivity(Intent(this, AprobadoActivity::class.java))
-            Toast.makeText(this, "Solicitud Aprobada", Toast.LENGTH_SHORT).show()
-        }
-        locationIcon?.setOnClickListener {
-            startActivity(Intent(this, UbicacionActivity::class.java))
-            Toast.makeText(this, "Ubicación Clicada", Toast.LENGTH_SHORT).show()
-        }
+        // Eventos de clic para cada ícono
+        profileIcon.setOnClickListener { showLogoutDialog() }
+        aceptIcon.setOnClickListener { navigateToActivity(AceptPermisosActivity::class.java, "Aceptar Permisos") }
+        pendingIcon.setOnClickListener { navigateToActivity(PendientesActivity::class.java, "Solicitudes Pendientes") }
+        plusIcon.setOnClickListener { navigateToActivity(PermisosActivity::class.java, "Crear Permiso") }
+        approvedIcon.setOnClickListener { navigateToActivity(AprobadoActivity::class.java, "Solicitud Aprobada") }
+        locationIcon.setOnClickListener { navigateToActivity(UbicacionActivity::class.java, "Mostrar Ubicación") }
     }
 
     private fun showLogoutDialog() {
-        Toast.makeText(this, "Cerrar sesión", Toast.LENGTH_SHORT).show()
+        // Mostrar diálogo de cierre de sesión
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_logout)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnLogout = dialog.findViewById<Button>(R.id.btn_logout)
+        val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel)
+
+        btnLogout.setOnClickListener {
+            dialog.dismiss()
+            Toast.makeText(this, "Has cerrado sesión", Toast.LENGTH_SHORT).show()
+            logoutUser()
+        }
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
+
+    private fun logoutUser() {
+        // Redirigir al Login y limpiar actividades previas
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToActivity(activityClass: Class<*>, message: String) {
+        // Navegar a otra actividad
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
+
+
+
 
 
 
