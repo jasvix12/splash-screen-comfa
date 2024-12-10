@@ -1,41 +1,56 @@
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp"
-    android:background="@android:color/white"
-    android:elevation="4dp"
-    android:layout_marginBottom="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/tvSolicitudMensaje"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Solicitud de permiso laboral"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"/>
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/btnAceptar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/acept"
-        android:contentDescription="Aceptar permiso"
-        android:layout_marginEnd="8dp"
-        android:background="?selectableItemBackground"
-        android:padding="8dp"/>
+        <!-- Mensaje del Permiso -->
+        <TextView
+            android:id="@+id/tvPermisoMensaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Permiso laboral"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp" />
 
-    <ImageView
-        android:id="@+id/btnRechazar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/cancel"
-        android:contentDescription="Rechazar permiso"
-        android:background="?selectableItemBackground"
-        android:padding="8dp"/>
-</LinearLayout>
+        <!-- Botones de Aceptar y Rechazar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+
+            <ImageView
+                android:id="@+id/btnAceptar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/acept"
+                android:contentDescription="Aceptar" />
+
+            <!-- Botón de Rechazar -->
+            <ImageView
+                android:id="@+id/btnRechazar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/cancel"
+                android:contentDescription="Rechazar" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
 
 
 

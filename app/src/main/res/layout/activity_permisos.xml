@@ -7,7 +7,7 @@
     android:background="@color/Colorblanco"
     tools:context=".PermisosActivity">
 
-    <!-- Cabecera -->
+    <!-- Header -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -29,10 +29,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Permisos"
-            android:textSize="30dp"
+            android:gravity="center"
+            android:text="Pendientes"
             android:textColor="@android:color/white"
-            android:gravity="center" />
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/profileIcon"
@@ -42,13 +42,13 @@
             android:src="@drawable/icon_perfil" />
     </LinearLayout>
 
-    <!-- Contenido principal -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,88 +56,178 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Tipo de Solicitud -->
+            <!-- Nombre, Documento, Sección, Rol -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tipo de Solicitud"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp" />
-
-            <Spinner
-                android:id="@+id/spinnerTipoSolicitud"
+                android:id="@+id/textNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:prompt="@string/tipo_de_solicitud" />
-
-            <!-- Sección de Destino -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sección de Destino"
-                android:textSize="16sp"
+                android:text="Nombre: el que pida el permiso"
                 android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textDocumento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Documento: 1002968954"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textSeccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sección: Tecnología"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textRol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rol: Colaborador"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
+                android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinnerSeccionDestino"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Fecha de salida:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/fechaSalida"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="Selecciona una fecha" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:prompt="@string/seccion_de_destino" />
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
-            <!-- Hora de Salida -->
-            <TextView
+                <EditText
+                    android:id="@+id/horaSalida"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="Hora de salida" />
+
+                <EditText
+                    android:id="@+id/horaEntrada"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="Hora de llegada" />
+            </LinearLayout>
+
+            <!-- Tipos de Permiso -->
+            <RadioGroup
+                android:id="@+id/radioGroupPermisos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/personal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora de Salida"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
+                android:text="Personal" />
 
-            <Spinner
-                android:id="@+id/spinnerHoraSalida"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:prompt="@string/hora_de_salida" />
-
-            <!-- Hora de Entrada -->
-            <TextView
+            <RadioButton
+                android:id="@+id/salud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora de Entrada"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
+                android:text="Salud" />
+
+            <RadioButton
+                android:id="@+id/estudio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estudio" />
+
+            <RadioButton
+                android:id="@+id/laboral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Laboral" />
+        </RadioGroup>
+
+        <!-- Autorizadores -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
+                android:text="Autorizador:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinnerHoraEntrada"
+            <CheckBox
+                android:id="@+id/autorizador1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eider Matallana" />
+
+            <CheckBox
+                android:id="@+id/autorizador2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Viviana Herrera" />
+
+            <CheckBox
+                android:id="@+id/autorizador3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brayan Neil Vargas Astaiza" />
+
+            <CheckBox
+                android:id="@+id/autorizador4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Santiago Troyano Lopez" />
+
+            <!-- Botones -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:prompt="@string/hora_de_entrada" />
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <!-- Botón Enviar -->
-            <Button
-                android:id="@+id/btnEnviarPermiso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enviar Permiso"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/ColorVerdeClaro"
-                android:textColor="@android:color/white"
-                android:padding="12dp" />
+                <Button
+                    android:id="@+id/btnSolicitar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/ColorVerdeClaro"
+                    android:text="Solicitar" />
+
+                <Button
+                    android:id="@+id/btnCancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:text="Cancelar" />
+            </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
-    <!-- Footer -->
     <FrameLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -153,7 +243,7 @@
 
             <ImageView
                 android:id="@+id/aceptIcon"
-                android:layout_width="38dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
                 android:src="@drawable/solicitud_permiso" />
@@ -185,11 +275,13 @@
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="20dp"
                 android:src="@drawable/ubicacion" />
-
         </LinearLayout>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 

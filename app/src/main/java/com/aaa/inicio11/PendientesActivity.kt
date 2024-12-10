@@ -18,7 +18,7 @@ class PendientesActivity : AppCompatActivity() {
 
 
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
-        val homeIcon = findViewById<ImageView>(R.id.homeIcon)
+        val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon)
         val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
@@ -30,7 +30,7 @@ class PendientesActivity : AppCompatActivity() {
         }
 
 
-        homeIcon.setOnClickListener {
+        aceptIcon.setOnClickListener {
             val intent = Intent(this, AceptPermisosActivity::class.java)
             startActivity(intent)
             Toast.makeText(this, "Aceptar Permisos", Toast.LENGTH_SHORT).show()

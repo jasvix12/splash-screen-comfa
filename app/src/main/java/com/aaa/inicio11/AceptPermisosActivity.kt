@@ -8,44 +8,114 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 class AceptPermisosActivity : AppCompatActivity() {
 
-    // Adaptador del RecyclerView
+    private lateinit var db: FirebaseFirestore
     private lateinit var adapter: SolicitudAdapter
+    private val solicitudesList = mutableListOf<Solicitud>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acept_permiso)
 
+        // Inicializa Firebase Firestore
+        db = FirebaseFirestore.getInstance()
+
         // Configurar RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewSolicitudes)
         configurarRecyclerView(recyclerView)
+
+        // Cargar las solicitudes desde Firestore
+        loadSolicitudesFromFirestore()
 
         // Configurar íconos del footer
         configurarFooter()
     }
 
-    private fun configurarRecyclerView(recyclerView: RecyclerView) {
-        // Inicializar el adaptador con las solicitudes de FakeDatabase
-        adapter = SolicitudAdapter(
-            FakeDatabase.solicitudes,
-            onAceptarClick = { solicitud ->
-                // Aceptar solicitud
-                FakeDatabase.solicitudes.remove(solicitud)
+    private fun loadSolicitudesFromFirestore() {
+        db.collection("solicitudes")
+            .whereEqualTo("estado", "pendiente")
+            .get()
+            .addOnSuccessListener { documents ->
+                solicitudesList.clear()
+                for (document in documents) {
+                    val solicitud = document.toObject(Solicitud::class.java)
+                    solicitud?.let { solicitudesList.add(it) } // Agregar solicitud a la lista
+                }
                 adapter.notifyDataSetChanged()
-                Toast.makeText(this, "Permiso aceptado: ${solicitud.tipo}", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al cargar las solicitudes", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    private fun configurarRecyclerView(recyclerView: RecyclerView) {
+        // Inicializar el adaptador con la lista de solicitudes
+        adapter = SolicitudAdapter(
+            solicitudesList,
+            onAceptarClick = { solicitud ->
+                // Acción al aceptar
+                acceptSolicitud(solicitud)
             },
             onRechazarClick = { solicitud ->
-                // Rechazar solicitud
-                FakeDatabase.solicitudes.remove(solicitud)
-                adapter.notifyDataSetChanged()
-                Toast.makeText(this, "Permiso rechazado: ${solicitud.tipo}", Toast.LENGTH_SHORT).show()
+                // Acción al rechazar
+                rejectSolicitud(solicitud)
             }
         )
-
-        // Configurar RecyclerView con el adaptador
         recyclerView.adapter = adapter
+    }
+
+    private fun acceptSolicitud(solicitud: Solicitud) {
+        // Obtén el documento correspondiente desde Firestore
+        db.collection("solicitudes")
+            .whereEqualTo("tipo", solicitud.tipo)
+            .whereEqualTo("seccion", solicitud.seccion)
+            .whereEqualTo("horaSalida", solicitud.horaSalida)
+            .whereEqualTo("horaEntrada", solicitud.horaEntrada)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    val documentId = documents.documents[0].id // Obtener el ID del documento
+                    db.collection("solicitudes").document(documentId)
+                        .update("estado", "aceptado")
+                        .addOnSuccessListener {
+                            solicitudesList.remove(solicitud)
+                            adapter.notifyDataSetChanged()
+                            Toast.makeText(this, "Permiso Aceptado: ${solicitud.tipo}", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Error al aceptar la solicitud", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+    }
+
+    private fun rejectSolicitud(solicitud: Solicitud) {
+        // Obtén el documento correspondiente desde Firestore
+        db.collection("solicitudes")
+            .whereEqualTo("tipo", solicitud.tipo)
+            .whereEqualTo("seccion", solicitud.seccion)
+            .whereEqualTo("horaSalida", solicitud.horaSalida)
+            .whereEqualTo("horaEntrada", solicitud.horaEntrada)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    val documentId = documents.documents[0].id // Obtener el ID del documento
+                    db.collection("solicitudes").document(documentId)
+                        .update("estado", "rechazado")
+                        .addOnSuccessListener {
+                            solicitudesList.remove(solicitud)
+                            adapter.notifyDataSetChanged()
+                            Toast.makeText(this, "Permiso Rechazado: ${solicitud.tipo}", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Error al rechazar la solicitud", Toast.LENGTH_SHORT).show() }
+                }
+            }
     }
 
     private fun configurarFooter() {
@@ -67,7 +137,7 @@ class AceptPermisosActivity : AppCompatActivity() {
     }
 
     private fun showLogoutDialog() {
-        // Mostrar diálogo de cierre de sesión
+
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_logout)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -100,6 +170,7 @@ class AceptPermisosActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
+
 
 
 

@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toTopOf="@id/footer" />
 
-    <!-- Footer con íconos de navegación -->
+
     <FrameLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

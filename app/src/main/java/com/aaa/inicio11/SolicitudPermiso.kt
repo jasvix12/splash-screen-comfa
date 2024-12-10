@@ -3,17 +3,18 @@ package com.aaa.inicio11
 import android.os.Parcel
 import android.os.Parcelable
 
-data class SolicitudPermiso(
+data class Solicitud(
     val tipo: String,
     val seccion: String,
     val horaSalida: String,
     val horaEntrada: String
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: ""
+        tipo = parcel.readString() ?: "",
+        seccion = parcel.readString() ?: "",
+        horaSalida = parcel.readString() ?: "",
+        horaEntrada = parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -25,9 +26,17 @@ data class SolicitudPermiso(
 
     override fun describeContents(): Int = 0
 
-    companion object CREATOR : Parcelable.Creator<SolicitudPermiso> {
-        override fun createFromParcel(parcel: Parcel): SolicitudPermiso = SolicitudPermiso(parcel)
-        override fun newArray(size: Int): Array<SolicitudPermiso?> = arrayOfNulls(size)
+    companion object CREATOR : Parcelable.Creator<Solicitud> {
+        override fun createFromParcel(parcel: Parcel): Solicitud {
+            return Solicitud(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Solicitud?> {
+            return arrayOfNulls(size)
+        }
     }
 }
+
+
+
 

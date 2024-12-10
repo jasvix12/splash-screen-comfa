@@ -1,5 +1,6 @@
 package com.aaa.inicio11
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -8,20 +9,21 @@ import androidx.appcompat.app.AppCompatActivity
 
 class UbicacionActivity : AppCompatActivity() {
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ubicacion)
 
 
 
-        val homeIcon = findViewById<ImageView>(R.id.homeIcon)
+        val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
         val plusIcon = findViewById<ImageView>(R.id.plusIcon)
         val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
         val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
 
-        homeIcon.setOnClickListener {
+        aceptIcon.setOnClickListener {
             val intent = Intent(this, AceptPermisosActivity::class.java)
             startActivity(intent)
             Toast.makeText(this, "Aceptar Permiso", Toast.LENGTH_SHORT).show()

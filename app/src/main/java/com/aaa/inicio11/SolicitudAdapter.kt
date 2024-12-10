@@ -8,41 +8,40 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SolicitudAdapter(
-    private val solicitudes: MutableList<SolicitudPermiso>,
-    private val onAceptarClick: (SolicitudPermiso) -> Unit,
-    private val onRechazarClick: (SolicitudPermiso) -> Unit
+    private val solicitudes: MutableList<Solicitud>,
+    private val onAceptarClick: (Solicitud) -> Unit,
+    private val onRechazarClick: (Solicitud) -> Unit
 ) : RecyclerView.Adapter<SolicitudAdapter.SolicitudViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolicitudViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_solicitud, parent, false)
+
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_solicitud, parent, false)
         return SolicitudViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: SolicitudViewHolder, position: Int) {
         val solicitud = solicitudes[position]
-        holder.bind(solicitud)
-    }
 
-    override fun getItemCount(): Int = solicitudes.size
 
-    inner class SolicitudViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvSolicitudMensaje: TextView = itemView.findViewById(R.id.tvSolicitudMensaje)
-        private val btnAceptar: ImageView = itemView.findViewById(R.id.btnAceptar)
-        private val btnRechazar: ImageView = itemView.findViewById(R.id.btnRechazar)
+        holder.tvPermisoMensaje.text = solicitud.tipo
 
-        fun bind(solicitud: SolicitudPermiso) {
-            tvSolicitudMensaje.text = "${solicitud.tipo} - ${solicitud.seccion}"
+        holder.btnAceptar.setOnClickListener {
+            onAceptarClick(solicitud)
+        }
 
-            btnAceptar.setOnClickListener {
-                onAceptarClick(solicitud)
-            }
-
-            btnRechazar.setOnClickListener {
-                onRechazarClick(solicitud)
-            }
+        holder.btnRechazar.setOnClickListener {
+            onRechazarClick(solicitud)
         }
     }
+    override fun getItemCount(): Int = solicitudes.size
+
+
+    inner class SolicitudViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvPermisoMensaje: TextView = itemView.findViewById(R.id.tvPermisoMensaje)
+        val btnAceptar: ImageView = itemView.findViewById(R.id.btnAceptar)
+        val btnRechazar: ImageView = itemView.findViewById(R.id.btnRechazar)
+    }
 }
+
 
 

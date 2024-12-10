@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "642890720867",
+    "project_id": "comfacauca-2c562",
+    "storage_bucket": "comfacauca-2c562.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642890720867:android:2f54ed8af730b961e13a56",
+        "android_client_info": {
+          "package_name": "com.aaa.inicio11"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkK1uNeZ5iVOKPmxlOe5D66ZRBRcwS2kU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
