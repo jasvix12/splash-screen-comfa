@@ -7,7 +7,7 @@
     android:background="@color/Colorblanco"
     tools:context=".PermisosActivity">
 
-    <!-- Header -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Pendientes"
+            android:text="Permisos"
             android:textColor="@android:color/white"
             android:textSize="30sp" />
 
@@ -56,7 +56,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Nombre, Documento, Sección, Rol -->
+
             <TextView
                 android:id="@+id/textNombre"
                 android:layout_width="match_parent"
@@ -81,13 +81,26 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textRol"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rol: Colaborador"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Destino:"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/destino"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="seccion de destino" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,40 +147,40 @@
                     android:hint="Hora de llegada" />
             </LinearLayout>
 
-            <!-- Tipos de Permiso -->
+
             <RadioGroup
                 android:id="@+id/radioGroupPermisos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/personal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Personal" />
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/salud"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Salud" />
+                <RadioButton
+                    android:id="@+id/personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Personal" />
 
-            <RadioButton
-                android:id="@+id/estudio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Estudio" />
+                <RadioButton
+                    android:id="@+id/salud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Salud" />
 
-            <RadioButton
-                android:id="@+id/laboral"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Laboral" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/estudio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estudio" />
 
-        <!-- Autorizadores -->
+                <RadioButton
+                    android:id="@+id/laboral"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Laboral" />
+            </RadioGroup>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -182,25 +195,14 @@
                 android:layout_height="wrap_content"
                 android:text="Eider Matallana" />
 
-            <CheckBox
-                android:id="@+id/autorizador2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Viviana Herrera" />
-
-            <CheckBox
-                android:id="@+id/autorizador3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Brayan Neil Vargas Astaiza" />
 
             <CheckBox
                 android:id="@+id/autorizador4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Santiago Troyano Lopez" />
+                android:text="Rodrigo Arturo Carreño Vallejo" />
 
-            <!-- Botones -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

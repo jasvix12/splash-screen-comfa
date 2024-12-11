@@ -12,17 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="8dp">
 
-        <!-- Mensaje del Permiso -->
         <TextView
-            android:id="@+id/tvPermisoMensaje"
-            android:layout_width="match_parent"
+            android:id="@+id/tipoTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Permiso laboral"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="16dp" />
+            android:text="Tipo de Permiso"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/estadoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado" />
+    </LinearLayout>
+
 
         <!-- Botones de Aceptar y Rechazar -->
         <LinearLayout
@@ -48,7 +53,6 @@
                 android:src="@drawable/cancel"
                 android:contentDescription="Rechazar" />
         </LinearLayout>
-    </LinearLayout>
 </androidx.cardview.widget.CardView>
 
 
