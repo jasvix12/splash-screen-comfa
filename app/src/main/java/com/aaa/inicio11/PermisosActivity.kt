@@ -6,23 +6,24 @@ import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
-class PermisosActivity : AppCompatActivity() {
+// Clase estática para almacenar las solicitudes temporalmente
+object SolicitudesManager {
+    val solicitudesPendientes = mutableListOf<Solicitud>()
+}
 
-    private lateinit var db: FirebaseFirestore
+
+class PermisosActivity : AppCompatActivity() {
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permisos)
-
-        // Inicializar Firestore
-        db = FirebaseFirestore.getInstance()
 
         // Iconos del footer
         val aceptIcon: ImageView = findViewById(R.id.aceptIcon)
@@ -30,7 +31,7 @@ class PermisosActivity : AppCompatActivity() {
         val plusIcon: ImageView = findViewById(R.id.plusIcon)
         val approvedIcon: ImageView = findViewById(R.id.approvedIcon)
         val locationIcon: ImageView = findViewById(R.id.locationIcon)
-        val profileIcon: ImageView = findViewById(R.id.profileIcon) // Ícono para cerrar sesión
+        val profileIcon: ImageView = findViewById(R.id.profileIcon)
 
         // Botones del formulario
         val btnSolicitar: Button = findViewById(R.id.btnSolicitar)
@@ -47,7 +48,7 @@ class PermisosActivity : AppCompatActivity() {
             findViewById<CheckBox>(R.id.autorizador4)
         )
 
-        // Lógica para íconos del footer
+        // Lógica para botones del footer
         aceptIcon.setOnClickListener {
             navigateToActivity(AceptPermisosActivity::class.java, "Inicio")
         }
@@ -68,12 +69,11 @@ class PermisosActivity : AppCompatActivity() {
             navigateToActivity(UbicacionActivity::class.java, "Mostrar Ubicación")
         }
 
-        // Lógica para cerrar sesión
         profileIcon.setOnClickListener {
             showLogoutDialog()
         }
 
-        // Lógica para el botón "Solicitar"
+        // Enviar y navegar
         btnSolicitar.setOnClickListener {
             val fecha = fechaSalida.text.toString()
             val salida = horaSalida.text.toString()
@@ -81,14 +81,14 @@ class PermisosActivity : AppCompatActivity() {
             val destinoText = destino.text.toString()
 
             val selectedRadioButtonId = radioGroup.checkedRadioButtonId
-
             val tipoPermiso = if (selectedRadioButtonId != -1) {
                 findViewById<RadioButton>(selectedRadioButtonId).text.toString()
             } else {
                 null
             }
 
-            val autorizadoresSeleccionados = autorizadores.filter { it.isChecked }.map { it.text.toString() }
+            val autorizadoresSeleccionados =
+                autorizadores.filter { it.isChecked }.map { it.text.toString() }
 
             if (fecha.isEmpty() || salida.isEmpty() || tipoPermiso.isNullOrEmpty() || autorizadoresSeleccionados.isEmpty() || destinoText.isEmpty()) {
                 Snackbar.make(it, "Por favor, completa todos los campos obligatorios", Snackbar.LENGTH_LONG).show()
@@ -97,17 +97,14 @@ class PermisosActivity : AppCompatActivity() {
             }
         }
 
-        // Lógica para el botón "Cancelar"
         btnCancelar.setOnClickListener {
             finish()
         }
 
-        // Eventos para abrir el DatePicker (para seleccionar fecha)
         fechaSalida.setOnClickListener {
             mostrarDatePicker(fechaSalida)
         }
 
-        // Eventos para abrir el TimePicker (para seleccionar hora)
         horaSalida.setOnClickListener {
             mostrarTimePicker(horaSalida)
         }
@@ -125,43 +122,25 @@ class PermisosActivity : AppCompatActivity() {
         destino: String,
         autorizadores: List<String>
     ) {
-        val permiso = mapOf(
-            "fecha" to fecha,
-            "horaSalida" to salida,
-            "horaEntrada" to entrada,
-            "tipoPermiso" to tipoPermiso,
-            "destino" to destino,
-            "autorizadores" to autorizadores,
-            "estado" to "pendiente"  // El estado inicial es "pendiente"
+        val permiso = Solicitud(
+            horaSalida = salida,
+            horaEntrada = entrada,
+            tipo = tipoPermiso,
+            destino = destino,
+            autorizadores = autorizadores,
+            estado = "pendiente"
         )
 
-        db.collection("solicitudes")
-            .add(permiso)
-            .addOnSuccessListener { documentReference ->
-                Toast.makeText(this, "Permiso enviado exitosamente", Toast.LENGTH_SHORT).show()
-                // Guardar el ID del documento para su posterior uso
-                val permisoId = documentReference.id
-                updatePermissionStatus(permisoId, "pendiente")
-                finish()
-            }
-            .addOnFailureListener { e ->
-                Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Error al enviar permiso: ${e.message}",
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-    }
+        Log.d("PermisosDebug", "Enviando permiso: $permiso")
 
-    private fun updatePermissionStatus(permisoId: String, estado: String) {
-        val permisoRef = db.collection("solicitudes").document(permisoId)
-        permisoRef.update("estado", estado)
-            .addOnSuccessListener {
-                Snackbar.make(findViewById(android.R.id.content), "Estado actualizado a $estado", Snackbar.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Snackbar.make(findViewById(android.R.id.content), "Error al actualizar estado: ${e.message}", Snackbar.LENGTH_LONG).show()
-            }
+        // Guardar el permiso en la lista temporal
+        SolicitudesManager.solicitudesPendientes.add(permiso)
+
+        // Navegar después de que el permiso se haya enviado con éxito
+        val intent = Intent(this, AceptPermisosActivity::class.java)
+        startActivity(intent)
+        Toast.makeText(this, "Permiso enviado exitosamente", Toast.LENGTH_SHORT).show()
+        finish() // Opcional, si quieres cerrar esta actividad
     }
 
     private fun mostrarDatePicker(editText: EditText) {
@@ -198,9 +177,8 @@ class PermisosActivity : AppCompatActivity() {
     }
 
     private fun showLogoutDialog() {
-        // Crear el diálogo de cierre de sesión
         val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_logout)  // Asegúrate de tener un diseño para el diálogo
+        dialog.setContentView(R.layout.dialog_logout)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         val btnLogout = dialog.findViewById<Button>(R.id.btn_logout)
@@ -217,14 +195,12 @@ class PermisosActivity : AppCompatActivity() {
     }
 
     private fun logoutUser() {
-        // Redirigir al Login y limpiar actividades previas
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }
 }
-
 
 
 

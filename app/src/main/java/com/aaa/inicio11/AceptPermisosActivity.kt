@@ -1,134 +1,100 @@
 package com.aaa.inicio11
 
-import SolicitudAdapter
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 
 class AceptPermisosActivity : AppCompatActivity() {
-
-    private lateinit var db: FirebaseFirestore
-    private lateinit var adapter: SolicitudAdapter
-    private val solicitudesList = mutableListOf<Solicitud>()
+    private var adapter: SolicitudAdapter? = null
+    private val solicitudesList: MutableList<Solicitud> = SolicitudesManager.solicitudesPendientes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acept_permiso)
 
-        // Inicializa Firebase Firestore
-        db = FirebaseFirestore.getInstance()
-
-        // Configurar RecyclerView
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewSolicitudes)
         configurarRecyclerView(recyclerView)
-
-        // Cargar las solicitudes desde Firestore
-        loadSolicitudesFromFirestore()
-
-        // Configurar íconos del footer
         configurarFooter()
     }
 
-    private fun loadSolicitudesFromFirestore() {
-        db.collection("solicitudes")
-            .whereEqualTo("estado", "pendiente")
-            .get()
-            .addOnSuccessListener { documents ->
-                solicitudesList.clear()
-                for (document in documents) {
-                    val solicitud = document.toObject(Solicitud::class.java)
-                    solicitud?.let { solicitudesList.add(it) }
-                }
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Error al cargar las solicitudes", Toast.LENGTH_SHORT).show()
-            }
-    }
-
+    // Configurar el RecyclerView para mostrar las solicitudes
     private fun configurarRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.layoutManager = LinearLayoutManager(this) // Usar LinearLayoutManager para la lista
         adapter = SolicitudAdapter(
             solicitudesList,
-            onAceptarClick = { solicitud -> mostrarCuadroDialogo(solicitud, "aceptado") },
-            onRechazarClick = { solicitud -> mostrarCuadroDialogo(solicitud, "rechazado") }
+            { solicitud -> mostrarCuadroDialogo(solicitud, "aceptado") },
+            { solicitud -> mostrarCuadroDialogo(solicitud, "rechazado") }
         )
         recyclerView.adapter = adapter
     }
 
     private fun mostrarCuadroDialogo(solicitud: Solicitud, nuevoEstado: String) {
         val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setTitle("Confirmar Acción")
-        dialogBuilder.setMessage(
-            """
-            Tipo: ${solicitud.tipo}
-            Sección: ${solicitud.seccion}
-            Hora de Salida: ${solicitud.horaSalida}
-            Hora de Entrada: ${solicitud.horaEntrada}
-            
-            ¿Deseas marcar esta solicitud como "$nuevoEstado"?
-            """.trimIndent()
-        )
-        dialogBuilder.setPositiveButton("Sí") { _, _ ->
-            actualizarEstadoSolicitud(solicitud, nuevoEstado)
+
+        // Configura el título y mensaje del diálogo.
+        dialogBuilder.setTitle("Solicitud de Permiso")
+        dialogBuilder.setMessage("Tipo de Permiso: ${solicitud.tipo}")
+
+        // Botón de aceptar.
+        dialogBuilder.setPositiveButton("Aceptar") { dialog, _ ->
+            actualizarEstadoSolicitud(solicitud, "aceptado")
+            dialog.dismiss()
         }
-        dialogBuilder.setNegativeButton("Cancelar", null)
+
+        // Botón de rechazar.
+        dialogBuilder.setNegativeButton("Rechazar") { dialog, _ ->
+            actualizarEstadoSolicitud(solicitud, "rechazado")
+            dialog.dismiss()
+        }
+
+        // Muestra el diálogo.
         dialogBuilder.create().show()
     }
 
+
+    // Actualizar el estado de la solicitud (aceptado o rechazado)
     private fun actualizarEstadoSolicitud(solicitud: Solicitud, nuevoEstado: String) {
-        db.collection("solicitudes")
-            .whereEqualTo("tipo", solicitud.tipo)
-            .whereEqualTo("seccion", solicitud.seccion)
-            .whereEqualTo("horaSalida", solicitud.horaSalida)
-            .whereEqualTo("horaEntrada", solicitud.horaEntrada)
-            .get()
-            .addOnSuccessListener { documents ->
-                if (!documents.isEmpty) {
-                    val documentId = documents.documents[0].id
-                    db.collection("solicitudes").document(documentId)
-                        .update("estado", nuevoEstado)
-                        .addOnSuccessListener {
-                            solicitudesList.remove(solicitud)
-                            adapter.notifyDataSetChanged()
-                            Toast.makeText(this, "Permiso $nuevoEstado correctamente", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(this, "Error al actualizar la solicitud", Toast.LENGTH_SHORT).show()
-                        }
-                }
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Error al buscar la solicitud", Toast.LENGTH_SHORT).show()
-            }
+        solicitud.estado = nuevoEstado
+        solicitudesList.remove(solicitud)
+        adapter?.notifyDataSetChanged()
+        Toast.makeText(this, "Permiso $nuevoEstado correctamente", Toast.LENGTH_SHORT).show()
     }
 
+    // Configurar los iconos del footer de la actividad
     private fun configurarFooter() {
-        val profileIcon = findViewById<ImageView>(R.id.profileIcon)
-        val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
-        val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
-        val plusIcon = findViewById<ImageView>(R.id.plusIcon)
-        val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
-        val locationIcon = findViewById<ImageView>(R.id.locationIcon)
+        try {
+            val profileIcon = findViewById<ImageView>(R.id.profileIcon)
+            val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
+            val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
+            val plusIcon = findViewById<ImageView>(R.id.plusIcon)
+            val approvedIcon = findViewById<ImageView>(R.id.approvedIcon)
+            val locationIcon = findViewById<ImageView>(R.id.locationIcon)
 
-        profileIcon.setOnClickListener { showLogoutDialog() }
-        aceptIcon.setOnClickListener { navigateToActivity(AceptPermisosActivity::class.java, "Aceptar Permisos") }
-        pendingIcon.setOnClickListener { navigateToActivity(PendientesActivity::class.java, "Solicitudes Pendientes") }
-        plusIcon.setOnClickListener { navigateToActivity(PermisosActivity::class.java, "Crear Permiso") }
-        approvedIcon.setOnClickListener { navigateToActivity(AprobadoActivity::class.java, "Solicitud Aprobada") }
-        locationIcon.setOnClickListener { navigateToActivity(UbicacionActivity::class.java, "Mostrar Ubicación") }
+            profileIcon.setOnClickListener { showLogoutDialog() }
+            aceptIcon.setOnClickListener { navigateToActivity(AceptPermisosActivity::class.java, "Aceptar Permisos") }
+            pendingIcon.setOnClickListener { navigateToActivity(PendientesActivity::class.java, "Solicitudes Pendientes") }
+            plusIcon.setOnClickListener { navigateToActivity(PermisosActivity::class.java, "Crear Permiso") }
+            approvedIcon.setOnClickListener { navigateToActivity(AprobadoActivity::class.java, "Solicitud Aprobada") }
+            locationIcon.setOnClickListener { navigateToActivity(UbicacionActivity::class.java, "Mostrar Ubicación") }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error al configurar el footer", e)
+        }
     }
 
+    // Mostrar el diálogo de cierre de sesión
     private fun showLogoutDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_logout)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
 
         val btnLogout = dialog.findViewById<Button>(R.id.btn_logout)
         val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel)
@@ -143,19 +109,26 @@ class AceptPermisosActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    // Realizar la acción de logout
     private fun logoutUser() {
         val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()
     }
 
+    // Navegar a una nueva actividad
     private fun navigateToActivity(activityClass: Class<*>, message: String) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    companion object {
+        private const val TAG = "AceptPermisosActivity"
+    }
 }
+
 
 
 
