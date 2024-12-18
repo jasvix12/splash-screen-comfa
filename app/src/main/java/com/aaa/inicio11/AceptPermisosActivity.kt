@@ -4,11 +4,9 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,42 +24,32 @@ class AceptPermisosActivity : AppCompatActivity() {
         configurarFooter()
     }
 
-    // Configurar el RecyclerView para mostrar las solicitudes
     private fun configurarRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.layoutManager = LinearLayoutManager(this) // Usar LinearLayoutManager para la lista
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+
         adapter = SolicitudAdapter(
             solicitudesList,
-            { solicitud -> mostrarCuadroDialogo(solicitud, "aceptado") },
-            { solicitud -> mostrarCuadroDialogo(solicitud, "rechazado") }
+            object : SolicitudAdapter.OnAceptarListener {
+                override fun onAceptar(solicitud: Solicitud?) {
+                    solicitud?.let {
+                        actualizarEstadoSolicitud(it, "aceptado")
+                    }
+                }
+            },
+            object : SolicitudAdapter.OnCancelarListener {
+                override fun onCancelar(solicitud: Solicitud?) {
+                    solicitud?.let {
+                        Toast.makeText(this@AceptPermisosActivity, "Acción cancelada para el permiso: ${it.tipo}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         )
+
         recyclerView.adapter = adapter
     }
 
-    private fun mostrarCuadroDialogo(solicitud: Solicitud, nuevoEstado: String) {
-        val dialogBuilder = AlertDialog.Builder(this)
 
-        // Configura el título y mensaje del diálogo.
-        dialogBuilder.setTitle("Solicitud de Permiso")
-        dialogBuilder.setMessage("Tipo de Permiso: ${solicitud.tipo}")
-
-        // Botón de aceptar.
-        dialogBuilder.setPositiveButton("Aceptar") { dialog, _ ->
-            actualizarEstadoSolicitud(solicitud, "aceptado")
-            dialog.dismiss()
-        }
-
-        // Botón de rechazar.
-        dialogBuilder.setNegativeButton("Rechazar") { dialog, _ ->
-            actualizarEstadoSolicitud(solicitud, "rechazado")
-            dialog.dismiss()
-        }
-
-        // Muestra el diálogo.
-        dialogBuilder.create().show()
-    }
-
-
-    // Actualizar el estado de la solicitud (aceptado o rechazado)
     private fun actualizarEstadoSolicitud(solicitud: Solicitud, nuevoEstado: String) {
         solicitud.estado = nuevoEstado
         solicitudesList.remove(solicitud)
@@ -69,7 +57,6 @@ class AceptPermisosActivity : AppCompatActivity() {
         Toast.makeText(this, "Permiso $nuevoEstado correctamente", Toast.LENGTH_SHORT).show()
     }
 
-    // Configurar los iconos del footer de la actividad
     private fun configurarFooter() {
         try {
             val profileIcon = findViewById<ImageView>(R.id.profileIcon)
@@ -90,7 +77,6 @@ class AceptPermisosActivity : AppCompatActivity() {
         }
     }
 
-    // Mostrar el diálogo de cierre de sesión
     private fun showLogoutDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_logout)
@@ -109,15 +95,13 @@ class AceptPermisosActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    // Realizar la acción de logout
     private fun logoutUser() {
         val intent = Intent(this, LoginActivity::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }
 
-    // Navegar a una nueva actividad
     private fun navigateToActivity(activityClass: Class<*>, message: String) {
         val intent = Intent(this, activityClass)
         startActivity(intent)
@@ -128,10 +112,6 @@ class AceptPermisosActivity : AppCompatActivity() {
         private const val TAG = "AceptPermisosActivity"
     }
 }
-
-
-
-
 
 
 
