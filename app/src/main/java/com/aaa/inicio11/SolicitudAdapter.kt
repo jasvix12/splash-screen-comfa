@@ -1,6 +1,7 @@
 package com.aaa.inicio11
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,18 +55,21 @@ class SolicitudAdapter(
         builder.setPositiveButton("Aceptar") { dialog: DialogInterface, _ ->
             Toast.makeText(view.context, "Permiso aceptado", Toast.LENGTH_SHORT).show()
             onAceptar.onAceptar(solicitud)
+
+            val intent = Intent(view.context, AprobadoActivity::class.java).apply {
+                putExtra("mensaje_aprobado", "Permiso aceptado: ${solicitud.tipo}")
+            }
+            view.context.startActivity(intent)
             dialog.dismiss()
         }
 
         builder.setNeutralButton("Cancelar") { dialog: DialogInterface, _ ->
-
             solicitudes.remove(solicitud)
             notifyDataSetChanged()
             Toast.makeText(view.context, "Acción cancelada", Toast.LENGTH_SHORT).show()
             onCancelar.onCancelar(solicitud)
             dialog.dismiss()
         }
-
 
         builder.create().show()
     }

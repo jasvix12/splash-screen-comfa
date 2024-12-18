@@ -16,7 +16,7 @@ class AprobadoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.solicitud_aprobada)
 
-
+        
         val profileIcon = findViewById<ImageView>(R.id.profileIcon)
         val aceptIcon = findViewById<ImageView>(R.id.aceptIcon)
         val pendingIcon = findViewById<ImageView>(R.id.pendingIcon)
