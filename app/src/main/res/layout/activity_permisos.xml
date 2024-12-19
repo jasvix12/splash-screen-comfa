@@ -61,17 +61,10 @@
                 android:id="@+id/textNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre: el que pida el permiso"
+                android:text="Nombre: jasvi"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textDocumento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Documento: 1002968954"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textSeccion"
@@ -90,8 +83,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:text="Destino:"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -99,7 +93,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="seccion de destino" />
+                    android:textColor="@android:color/black"
+                    android:hint="seccion destino" />
             </LinearLayout>
 
             <LinearLayout
@@ -113,6 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Fecha de salida:"
+                    android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
                 <EditText
@@ -136,7 +132,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:focusable="false"
-                    android:hint="Hora de salida" />
+                    android:textColor="@android:color/black"
+                    android:hint="Hora salida" />
 
                 <EditText
                     android:id="@+id/horaEntrada"
@@ -144,7 +141,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:focusable="false"
-                    android:hint="Hora de llegada" />
+                    android:textColor="@android:color/black"
+                    android:hint="Hora Entrada" />
             </LinearLayout>
 
 
@@ -159,24 +157,28 @@
                     android:id="@+id/personal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="Personal" />
 
                 <RadioButton
                     android:id="@+id/salud"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="Salud" />
 
                 <RadioButton
                     android:id="@+id/estudio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="Estudio" />
 
                 <RadioButton
                     android:id="@+id/laboral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
                     android:text="Laboral" />
             </RadioGroup>
 
@@ -186,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Autorizador:"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -193,6 +196,7 @@
                 android:id="@+id/autorizador1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:text="Eider Matallana" />
 
 
@@ -200,6 +204,7 @@
                 android:id="@+id/autorizador4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:text="Rodrigo Arturo Carreño Vallejo" />
 
 

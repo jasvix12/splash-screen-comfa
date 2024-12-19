@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-// Clase estática para almacenar las solicitudes temporalmente
+
 object SolicitudesManager {
     val solicitudesPendientes = mutableListOf<Solicitud>()
 }
@@ -163,9 +163,14 @@ class PermisosActivity : AppCompatActivity() {
         val minute = calendar.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+
+            val isPM =selectedHour >=12
+            val hourIn12Format = if (seletedHour % 12 ==  0) 12 else selectedHour % 12
+            val amPm = if (isPM) "PM" else "AM"
+
             val hora = String.format("%02d:%02d", selectedHour, selectedMinute)
             editText.setText(hora)
-        }, hour, minute, true)
+        }, hour, minute, false)
 
         timePickerDialog.show()
     }
