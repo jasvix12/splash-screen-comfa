@@ -133,14 +133,14 @@ class PermisosActivity : AppCompatActivity() {
 
         Log.d("PermisosDebug", "Enviando permiso: $permiso")
 
-        // Guardar el permiso en la lista temporal
+
         SolicitudesManager.solicitudesPendientes.add(permiso)
 
-        // Navegar después de que el permiso se haya enviado con éxito
+
         val intent = Intent(this, AceptPermisosActivity::class.java)
         startActivity(intent)
         Toast.makeText(this, "Permiso enviado exitosamente", Toast.LENGTH_SHORT).show()
-        finish() // Opcional, si quieres cerrar esta actividad
+        finish()
     }
 
     private fun mostrarDatePicker(editText: EditText) {
@@ -165,7 +165,8 @@ class PermisosActivity : AppCompatActivity() {
         val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
 
             val isPM =selectedHour >=12
-            val hourIn12Format = if (seletedHour % 12 ==  0) 12 else selectedHour % 12
+
+            val hourIn12Format = if (selectedHour % 12 ==  0) 12 else selectedHour % 12
             val amPm = if (isPM) "PM" else "AM"
 
             val hora = String.format("%02d:%02d", selectedHour, selectedMinute)
